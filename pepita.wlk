@@ -1,8 +1,21 @@
-import silvestre.*
-import nido.*
+import extras.*
 object pepita {
 	var energia = 500
-	var property position = game.at(0,3)
+	var position = game.at(0, 3)
+
+	method position(){
+		return game.at(self.posX(), self.posY())
+	}
+
+	method posX(){
+		const posX = position.x().max(0)
+		return posX.min(game.width()-1)
+	}
+
+	method posY(){
+		const posY = position.y().max(0)
+		return posY.min(game.height()-1)
+	}
 
 	method image(){
 		if (self.position() == silvestre.position()){
@@ -10,6 +23,9 @@ object pepita {
 		}
 		else if (self.position() == nido.position()){
 			return "pepita-grande.png"
+		}
+		else if (energia == 0){
+			return "pepita-gris.png"
 		}
 		else{
 			return "pepita.png"
@@ -28,10 +44,25 @@ object pepita {
 		return energia
 	}
 
-	method mover(){
+	method mover(direccion){
+		self.validarMover()
+		position = direccion.siguiente(position)
 		energia = 0.max(energia - 9)
 	}
 
+	method validarMover(){
+		if (energia == 0){
+			self.error("No tengo más energia!")
+		}
+	}
+
+	method gravedad(){
+		position = position.down(1)
+	}
+
+	method chocaCon(obstaculo){
+		
+	}
 }
 
 

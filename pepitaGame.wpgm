@@ -1,7 +1,6 @@
 import wollok.game.*
 import pepita.*
-import nido.*
-import silvestre.*
+import extras.*
 import energiaPepita.*
 
 program pepitaGame {
@@ -13,13 +12,15 @@ program pepitaGame {
 
 	game.addVisual(energiaPepita)
 	game.addVisual(nido)
+	game.addVisual(muro)
 	game.addVisual(silvestre)
-	game.addVisualCharacter(pepita)
+	game.addVisual(pepita)
 
-	keyboard.right().onPressDo({pepita.mover()})
-	keyboard.left().onPressDo({pepita.mover()})
-	keyboard.up().onPressDo({pepita.mover()})
-	keyboard.down().onPressDo({pepita.mover()})
+	keyboard.right().onPressDo({pepita.mover(derecha)})
+	keyboard.left().onPressDo({pepita.mover(izquierda)})
+	keyboard.up().onPressDo({pepita.mover(arriba)})
+	keyboard.down().onPressDo({pepita.mover(abajo)})
+	game.onTick(800, "gravedad", {pepita.gravedad()})
+	game.onCollideDo (pepita, { obstaculo => pepita.chocaCon(obstaculo)})
 
 	game.start()	
-}
