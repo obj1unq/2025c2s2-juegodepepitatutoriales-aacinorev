@@ -46,6 +46,7 @@ object pepita {
 
 	method mover(direccion){
 		self.validarMover()
+		self.validarSiHayObstaculo()
 		position = direccion.siguiente(position)
 		energia = 0.max(energia - 9)
 	}
@@ -60,9 +61,7 @@ object pepita {
 		position = position.down(1)
 	}
 
-	method chocaCon(obstaculo){
-		
-	}
+
 }
 
 
