@@ -3,20 +3,7 @@ object pepita {
 	var energia = 500
 	var property position = game.at(0, 5)
 
-	method posX(){
-		const posX = position.x().max(0)
-		return posX.min(game.width()-1)
-	}
-
-	method posY(){
-		const posY = position.y().max(0)
-		return posY.min(game.height()-1)
-	}
-
-	method posRestringida() {
-		return game.at(self.posX(),self.posY())
-	}
-
+	
 	method image(){
 		if (self.position() == silvestre.position()){
 			return "pepita-gris.png"
@@ -57,7 +44,7 @@ object pepita {
 
 	method moverSiPuedeA(direccion){
 		const otrosObjetos = game.getObjectsIn(direccion.siguiente(position))
-		if (otrosObjetos.isEmpty()){
+		if (otrosObjetos.isEmpty() and direccion.hayTablero(position,10,10)){
 			position = direccion.siguiente(position)
 			energia = 0.max(energia - 9)
 		}
