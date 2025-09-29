@@ -17,25 +17,25 @@ object nido {
 
 object derecha{
     method siguiente(position){
-        return position.right(1)
+        return game.at(pepita.posX(), pepita.posY()).right(1)
     }
 }
 
 object izquierda{
     method siguiente(position){
-        return position.left(1)
+        return game.at(pepita.posX(), pepita.posY()).left(1)
     }
 }
 
 object arriba{
     method siguiente(position){
-        return position.up(1)
+        return game.at(pepita.posX(), pepita.posY()).up(1)
     }
 }
 
 object abajo{
     method siguiente(position){
-        return position.down(1)
+        return game.at(pepita.posX(), pepita.posY()).down(1)
     }
 }
 

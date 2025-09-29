@@ -1,11 +1,7 @@
 import extras.*
 object pepita {
 	var energia = 500
-	var position = game.at(0, 3)
-
-	method position(){
-		return game.at(self.posX(), self.posY())
-	}
+	var property position = game.at(0, 5)
 
 	method posX(){
 		const posX = position.x().max(0)
@@ -15,6 +11,10 @@ object pepita {
 	method posY(){
 		const posY = position.y().max(0)
 		return posY.min(game.height()-1)
+	}
+
+	method posRestringida() {
+		return game.at(self.posX(),self.posY())
 	}
 
 	method image(){
@@ -45,22 +45,31 @@ object pepita {
 	}
 
 	method mover(direccion){
-		self.validarMover()
-		self.validarSiHayObstaculo()
-		position = direccion.siguiente(position)
-		energia = 0.max(energia - 9)
+		self.validarSiTengoEnergia()
+		self.moverSiPuedeA(direccion)
 	}
 
-	method validarMover(){
+	method validarSiTengoEnergia(){
 		if (energia == 0){
 			self.error("No tengo más energia!")
 		}
 	}
 
-	method gravedad(){
-		position = position.down(1)
+	method moverSiPuedeA(direccion){
+		const otrosObjetos = game.getObjectsIn(direccion.siguiente(position))
+		if (otrosObjetos.isEmpty()){
+			position = direccion.siguiente(position)
+			energia = 0.max(energia - 9)
+		}
 	}
 
+	method gravedad(){
+		self.moverSiPuedeA(abajo)
+	}
+
+	method validarSiHayObstaculo(){
+		position.getObjectsIn(position)
+	}
 
 }
 
